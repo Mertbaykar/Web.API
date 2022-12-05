@@ -1,0 +1,11 @@
+﻿.label-info, .badge-info {
+    background-color: #3a87ad;
+}
+
+.bootstrap-tagsinput {
+    line-height: 40px !important;
+}
+
+    .bootstrap-tagsinput .tag {
+        padding: 5px;
+    }

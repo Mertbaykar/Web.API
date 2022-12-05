@@ -1,0 +1,13 @@
+﻿@using System.Security.Claims
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>@User.Identity.Name is authenticated. His role is @User.Claims.FirstOrDefault(x=> x.Type == ClaimTypes.Role).Value</p>
+    <form asp-controller="Account" asp-action="Logout">
+        <button type="submit" class="btn btn-primary">Logout</button>
+    </form>
+    @*<p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>*@
+</div>
