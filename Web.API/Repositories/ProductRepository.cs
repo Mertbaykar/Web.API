@@ -18,15 +18,31 @@ namespace Web.API.Repositories
 
         }
 
+        public void AddCategories(Product product, List<Guid> categories)
+        {
+            if (categories != null && categories.Count() > 0)
+            {
+                List<Category> categories2Add = _dbContext.Categories.Where(x => categories.Contains(x.Id)).ToList();
+                categories2Add.ForEach(cat => product.Categories.Add(cat));
+            }
+        }
+
+        public void AddCompanies(Product product, List<Guid> companies)
+        {
+            if (companies != null && companies.Count() > 0)
+            {
+                List<Company> companies2Add = _dbContext.Companies.Where(x => companies.Contains(x.Id)).ToList();
+                companies2Add.ForEach(cat => product.Companies.Add(cat));
+            }
+        }
+
         public async Task<Product> Create(CreateProductDTO productDTO)
         {
             Product product = _mapper.Map<CreateProductDTO, Product>(productDTO);
-            List<Guid> categoriesToAdd = productDTO.Categories;
-            if (categoriesToAdd != null && categoriesToAdd.Count() > 0)
-            {
-                List<Category> categories = _dbContext.Categories.Where(x => categoriesToAdd.Contains(x.Id)).ToList();
-                categories.ForEach(cat => product.Categories.Add(cat));
-            }
+            List<Guid> categories2Add = productDTO.Categories;
+            List<Guid> companies2Add = productDTO.Companies;
+            AddCategories(product, categories2Add);
+            AddCompanies(product, companies2Add);
             return await base.Create(product);
         }
     }

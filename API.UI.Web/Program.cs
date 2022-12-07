@@ -14,6 +14,7 @@ builder.Services.AddTransient<AuthorizationHandler>();
 
 builder.Services.AddHttpClient<LoginClient>().AddHttpMessageHandler<AuthorizationHandler>();
 builder.Services.AddHttpClient<CategoryClient>().AddHttpMessageHandler<AuthorizationHandler>();
+builder.Services.AddHttpClient<CompanyClient>().AddHttpMessageHandler<AuthorizationHandler>();
 builder.Services.AddHttpClient<ProductClient>().AddHttpMessageHandler<AuthorizationHandler>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

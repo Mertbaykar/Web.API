@@ -26,6 +26,7 @@ builder.Services.AddDbContext<BusinessContext>(opts =>
 builder.Services.AddScoped(typeof(IEmployeeRepository), typeof(EmployeeRepository));
 builder.Services.AddScoped(typeof(IProductRepository), typeof(ProductRepository));
 builder.Services.AddScoped(typeof(ICategoryRepository), typeof(CategoryRepository));
+builder.Services.AddScoped(typeof(ICompanyRepository), typeof(CompanyRepository));
 builder.Services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

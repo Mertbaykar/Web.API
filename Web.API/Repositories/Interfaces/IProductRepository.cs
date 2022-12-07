@@ -8,5 +8,7 @@ namespace Web.API.Repositories.Interfaces
     public interface IProductRepository : IRepositoryBase<Product>
     {
         Task<Product> Create(CreateProductDTO productDTO);
+        void AddCategories(Product product, List<Guid> categories);
+        void AddCompanies(Product product, List<Guid> companies);
     }
 }

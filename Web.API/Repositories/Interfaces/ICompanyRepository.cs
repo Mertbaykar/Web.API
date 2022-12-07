@@ -5,7 +5,7 @@ using Web.API.Models;
 
 namespace Web.API.Repositories.Interfaces
 {
-    public interface ICategoryRepository : IRepositoryBase<Category>
+    public interface ICompanyRepository : IRepositoryBase<Company>
     {
 
     }

@@ -1,6 +1,7 @@
 ﻿@model API.Core.DTOs.Product.CreateProductDTO
 @using System.Security.Claims
 @using API.Core.DTOs.Category
+@using API.Core.DTOs.Company
 
 @*@section Styles{
     <link rel="stylesheet" href="~/lib/MDBootstrap/dist/css/mdb.dark.min.css" />
@@ -13,6 +14,7 @@
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
     List<GetCategoryDTO> categories = ViewBag.Categories as List<GetCategoryDTO>;
+    List<GetCompanyDTO> companies = ViewBag.Companies as List<GetCompanyDTO>;
 }
 
 <div class="container">
@@ -50,6 +52,18 @@
 
         </div>
 
+        <div class="form-group mt-4">
+            <label for="categories"></label>
+
+            <select id="companies" name="Companies" class="form-control" multiple="multiple">
+                @foreach (var company in companies)
+                {
+                    <option value="@company.Id">@company.Name</option>
+                }
+            </select>
+
+        </div>
+
         <button type="submit" class="btn btn-primary mt-5">Create</button>
     </form>
 </div>
@@ -60,6 +74,11 @@
             $('#categories').select2({
                 closeOnSelect: false,
                 placeholder: 'Kategorileri Seçiniz'
+            });
+
+              $('#companies').select2({
+                closeOnSelect: false,
+                placeholder: 'Firmaları Seçiniz'
             });
         });
     </script>

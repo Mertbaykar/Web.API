@@ -1,4 +1,5 @@
 ﻿using API.Core.DTOs.Category;
+using API.Core.DTOs.Company;
 using API.Core.DTOs.Product;
 using API.Core.HTTPClients;
 using API.UI.Web.Models;
@@ -13,12 +14,14 @@ namespace API.UI.Web.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly ProductClient _productClient;
         private readonly CategoryClient _categoryClient;
+        private readonly CompanyClient _companyClient;
 
-        public HomeController(ILogger<HomeController> logger, ProductClient productClient, CategoryClient categoryClient)
+        public HomeController(ILogger<HomeController> logger, ProductClient productClient, CategoryClient categoryClient, CompanyClient companyClient)
         {
             _logger = logger;
             _productClient = productClient;
             _categoryClient = categoryClient;
+            _companyClient=companyClient;
         }
 
         public IActionResult Index()
@@ -43,7 +46,9 @@ namespace API.UI.Web.Controllers
         public async Task<IActionResult> CreateProduct()
         {
             var categories = await _categoryClient.GetAll<GetCategoryDTO>();
+            var companies = await _companyClient.GetAll<GetCompanyDTO>();
             ViewBag.Categories = categories;
+            ViewBag.Companies = companies;
             return View();
         }
 

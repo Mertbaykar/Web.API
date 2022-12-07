@@ -18,7 +18,9 @@ namespace Web.API.MapperConfigurations
                .ForMember(x => x.Roles, y => y.MapFrom(z => z.RoleGroups.SelectMany(i => i.Roles)));
 
             CreateMap<CreateProductDTO, Product>()
-                .ForMember(x=> x.Categories, y=> y.Ignore());
+                .ForMember(x=> x.Categories, y=> y.Ignore())
+                .ForMember(x=> x.Companies, y=> y.Ignore())
+                ;
         }
     }
 }

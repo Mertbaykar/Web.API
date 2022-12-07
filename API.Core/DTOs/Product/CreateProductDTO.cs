@@ -1,4 +1,5 @@
-﻿using System;
+﻿using API.Core.Bases;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -19,5 +20,6 @@ namespace API.Core.DTOs.Product
         public decimal Price { get; set; }
 
         public List<Guid> Categories { get; set; } = new List<Guid>();
+        public List<Guid> Companies { get; set; } = new List<Guid>();
     }
 }

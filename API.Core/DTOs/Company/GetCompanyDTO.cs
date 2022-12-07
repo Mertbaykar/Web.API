@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace API.Core.DTOs.Category
+namespace API.Core.DTOs.Company
 {
-    public class GetCategoryDTO: NameValuePair
+    public class GetCompanyDTO : NameValuePair
     {
-        
+
     }
 }
