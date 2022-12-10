@@ -15,12 +15,12 @@ namespace Web.API.MapperConfigurations
 
             CreateMap<Employee, UserContextDTO>()
                .ForMember(x => x.RoleGroups, y => y.MapFrom(z => z.RoleGroups))
-               .ForMember(x => x.Roles, y => y.MapFrom(z => z.RoleGroups.SelectMany(i => i.Roles)));
+               .ForMember(x => x.Roles, y => y.MapFrom(z => z.RoleGroups.SelectMany(i => i.Roles).Distinct()));
 
             CreateMap<CreateProductDTO, Product>()
-                .ForMember(x=> x.Categories, y=> y.Ignore())
-                .ForMember(x=> x.Companies, y=> y.Ignore())
-                ;
+                .ForMember(x => x.Categories, y => y.Ignore())
+                .ForMember(x => x.Companies, y => y.Ignore());
+
         }
     }
 }

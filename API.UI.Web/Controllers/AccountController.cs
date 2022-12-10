@@ -27,6 +27,15 @@ namespace API.UI.Web.Controllers
 
             if (!string.IsNullOrEmpty(ReturnUrl))
                 TempData["ReturnUrl"] = ReturnUrl;
+
+            #region Remove token from cookies if exists
+
+            var tokenCookie = HttpContext.Request.Cookies["Token"];
+            if (!string.IsNullOrEmpty(tokenCookie))
+                HttpContext.Response.Cookies.Delete("Token");
+
+            #endregion
+
             return View();
         }
 

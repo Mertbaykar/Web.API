@@ -21,7 +21,7 @@ namespace API.UI.Web.Controllers
             _logger = logger;
             _productClient = productClient;
             _categoryClient = categoryClient;
-            _companyClient=companyClient;
+            _companyClient = companyClient;
         }
 
         public IActionResult Index()

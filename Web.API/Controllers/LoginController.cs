@@ -11,12 +11,13 @@ using Web.API.Repositories.Interfaces;
 using Web.API.Models;
 using AutoMapper;
 using API.Core.DTOs;
+using Web.API.Bases;
 
 namespace Web.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LoginController : ControllerBase
+    public class LoginController : ApiControllerBase
     {
         private readonly IConfiguration _config;
         private readonly IEmployeeRepository _employeeRepository;
@@ -32,11 +33,10 @@ namespace Web.API.Controllers
         [HttpPost]
         public async Task<ActionResult> Login([FromBody] UserLogin userLogin)
         {
+            //var currentuser = CurrentUser;
             var user = await _employeeRepository.GetEmployeeWithRoles(userLogin);
             if (user != null)
             {
-                // oluşturacağın global user nesnesini burada doldur, mapping çalışıyor
-                var user2 = _mapper.Map<Employee, UserContextDTO>(user);
                 var token = GenerateToken(user);
                 return Ok(token);
             }
