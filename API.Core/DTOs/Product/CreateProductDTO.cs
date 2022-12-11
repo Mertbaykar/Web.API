@@ -10,12 +10,12 @@ namespace API.Core.DTOs.Product
 {
     public class CreateProductDTO
     {
-        [Required]
+        [Required(ErrorMessage ="Ad boş bırakılamaz")]
         public string Name { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Açıklama boş bırakılamaz")]
         public string Description { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Fiyat boş bırakılamaz ve sayı girilmelidir")]
         [DisplayFormat(DataFormatString = "{0:n2}", ApplyFormatInEditMode = true)]
         public decimal Price { get; set; }
 

@@ -56,13 +56,31 @@ namespace API.UI.Web.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateProduct(CreateProductDTO createProductDTO)
         {
-            var response = await _productClient.PostAsJsonAsync(createProductDTO);
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
-                ModelState.AddModelError("Price", "Ürün başarıyla eklendi");
-            else
-                ModelState.AddModelError("Price", "Ürün eklenemedi");
+            try
+            {
+                var response = await _productClient.PostAsJsonAsync(createProductDTO);
 
-            return RedirectToAction("CreateProduct");
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    return Json(new
+                    {
+                        Message = "Ürün eklendi"
+                    });
+                }
+                return Json(new
+                {
+                    Message = "Ürün eklenemedi"
+                });
+            }
+            catch (Exception ex)
+            {
+
+                return Json(new
+                {
+                    Message = "Ürün eklenemedi. " + ex.Message
+                });
+            }
+          
         }
 
         [Authorize(Roles = "Admin")]

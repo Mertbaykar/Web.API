@@ -25,8 +25,6 @@ namespace Web.API.Controllers
             {
                 try
                 {
-                    //var currentUser = CurrentUser;
-                    var bla = CurrentUser;
                     var product = await _productRepository.Create(productDTO);
                     return Ok(product);
                 }

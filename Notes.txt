@@ -1,0 +1,4 @@
+1. PostData : Post isteği atmak için script yaz. Sayfanın refresh olmasını önlemek için güzel olur.
+2. SubmitForm: Form'u selector yoluyla parametre olarak geçebileceğin bi method güzel olur.Jquery validation
+ ile önce kontrol et. Formu serialize  ederek data elde edebilme özelliğini kullanıp o data'yı PostData 
+ ile kullan.

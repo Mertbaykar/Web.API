@@ -3,13 +3,6 @@
 @using API.Core.DTOs.Category
 @using API.Core.DTOs.Company
 
-@*@section Styles{
-    <link rel="stylesheet" href="~/lib/MDBootstrap/dist/css/mdb.dark.min.css" />
-    <link rel="stylesheet" href="~/lib/MDBootstrap/dist/css/mdb.dark.rtl.min.css" />
-    <link rel="stylesheet" href="~/lib/MDBootstrap/dist/css/mdb.min.css" />
-    <link rel="stylesheet" href="~/lib/MDBootstrap/dist/css/mdb.rtl.min.css" />
-    }*@
-
 @{
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -18,7 +11,8 @@
 }
 
 <div class="container">
-    <form asp-controller="Home" asp-action="CreateProduct" method="post">
+    @*<form id="createProductForm" asp-controller="Home" asp-action="CreateProduct">*@
+    <form id="createProductForm">
 
         <div class="form-group">
             <label for="Name">Ürün Adı</label>
@@ -42,7 +36,7 @@
 
         <div class="form-group mt-4">
             <label for="categories"></label>
-            
+
             <select id="categories" name="Categories" class="form-control" multiple="multiple">
                 @foreach (var category in categories)
                 {
@@ -64,7 +58,7 @@
 
         </div>
 
-        <button type="submit" class="btn btn-primary mt-5">Create</button>
+        <button type="button" class="btn btn-primary mt-5 createProductbtn">Create</button>
     </form>
 </div>
 
@@ -76,10 +70,21 @@
                 placeholder: 'Kategorileri Seçiniz'
             });
 
-              $('#companies').select2({
+            $('#companies').select2({
                 closeOnSelect: false,
                 placeholder: 'Firmaları Seçiniz'
             });
+
+            $(".createProductbtn").click(function () {
+                mert.submitForm('#createProductForm', '@Url.Action("CreateProduct","Home")',
+                    (function (response) {
+                        alert(response.message);
+                    }),
+                    (function (response) {
+                        alert(response.message);
+                    }));
+            });
+
         });
     </script>
 }

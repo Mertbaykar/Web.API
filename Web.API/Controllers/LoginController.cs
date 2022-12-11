@@ -33,7 +33,6 @@ namespace Web.API.Controllers
         [HttpPost]
         public async Task<ActionResult> Login([FromBody] UserLogin userLogin)
         {
-            //var currentuser = CurrentUser;
             var user = await _employeeRepository.GetEmployeeWithRoles(userLogin);
             if (user != null)
             {
