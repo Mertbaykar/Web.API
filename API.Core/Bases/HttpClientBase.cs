@@ -1,4 +1,5 @@
 ﻿using API.Core.HTTPClients;
+using API.Core.Extensions;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,13 @@ namespace API.Core.Bases
             var response = await _httpClient.GetAsync("");
             var result = await response.Content.ReadFromJsonAsync<List<TDTO>>();
             return result;
+        }
+        public async Task<HttpResponseMessage> GetAsyncWithQueryString(
+            Dictionary<string, string> queryStringParams, string uri = "")
+        {
+            if (string.IsNullOrEmpty(uri))
+                return await _httpClient.GetWithQueryStringAsync(_httpClient.BaseAddress!.ToString(), queryStringParams);
+            return await _httpClient.GetWithQueryStringAsync(uri, queryStringParams);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Web.API.Bases;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using Web.API.Bases;
 
 namespace Web.API.Models
 {
@@ -7,11 +8,13 @@ namespace Web.API.Models
         public Product()
         {
             Categories = new List<Category>();
-            Companies= new List<Company>();
         }
         public decimal Price { get; set; }
         public string Description { get; set; }
         public virtual ICollection<Category> Categories { get; set; }
-        public virtual ICollection<Company> Companies { get; set; }
+        //public virtual ICollection<Company> Companies { get; set; }
+        public virtual Company Company { get; set; }
+        [ForeignKey("Company")]
+        public Guid CompanyId { get; set; }
     }
 }

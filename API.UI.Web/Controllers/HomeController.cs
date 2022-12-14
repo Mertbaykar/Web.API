@@ -2,6 +2,7 @@
 using API.Core.DTOs.Company;
 using API.Core.DTOs.Product;
 using API.Core.HTTPClients;
+using API.Core.RoleDefinitions;
 using API.UI.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -32,7 +33,7 @@ namespace API.UI.Web.Controllers
             }
             return View();
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = RoleDefinitions.ProductAdmin)]
         public IActionResult Welcome()
         {
             if (!HttpContext.User.Identity.IsAuthenticated)
@@ -42,7 +43,8 @@ namespace API.UI.Web.Controllers
             return View();
         }
 
-        [Authorize(Roles = "Admin")]
+        #region CreateProduct
+        [Authorize(Roles = RoleDefinitions.ProductAdmin)]
         public async Task<IActionResult> CreateProduct()
         {
             var categories = await _categoryClient.GetAll<GetCategoryDTO>();
@@ -53,7 +55,7 @@ namespace API.UI.Web.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = RoleDefinitions.ProductAdmin)]
         public async Task<IActionResult> CreateProduct(CreateProductDTO createProductDTO)
         {
             try
@@ -80,10 +82,32 @@ namespace API.UI.Web.Controllers
                     Message = "Ürün eklenemedi. " + ex.Message
                 });
             }
-          
+
+        }
+        #endregion
+
+        [HttpGet]
+        [Authorize(Roles = RoleDefinitions.ProductAdmin + "," + RoleDefinitions.ProductReadOnly + "," + RoleDefinitions.ProductEdit)]
+        public async Task<IActionResult> GetProducts()
+        {
+            List<GetProductDTO> products = await _productClient.GetProducts();
+            return View(products);
         }
 
-        [Authorize(Roles = "Admin")]
+        [HttpGet]
+        [Authorize(Roles = RoleDefinitions.ProductAdmin + "," + RoleDefinitions.ProductReadOnly + "," + RoleDefinitions.ProductEdit)]
+        public async Task<IActionResult> ProductEdit(Guid id)
+        {
+            GetProductDTO product = await _productClient.GetProduct(id);
+            var categories = await _categoryClient.GetAll<GetCategoryDTO>();
+            var companies = await _companyClient.GetAll<GetCompanyDTO>();
+            ViewBag.Categories = categories;
+            ViewBag.Companies = companies;
+            return View(product);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = RoleDefinitions.ProductAdmin)]
         public IActionResult Privacy()
         {
             return View();

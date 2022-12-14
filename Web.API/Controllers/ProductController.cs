@@ -1,4 +1,5 @@
 ﻿using API.Core.DTOs.Product;
+using API.Core.RoleDefinitions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,7 +19,7 @@ namespace Web.API.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = RoleDefinitions.ProductAdmin)]
         public async Task<ActionResult> CreateProduct([FromBody] CreateProductDTO productDTO)
         {
             if (ModelState.IsValid)
@@ -35,6 +36,21 @@ namespace Web.API.Controllers
             }
             else
                 return BadRequest(ModelState);
+        }
+        [HttpGet]
+        [Authorize(Roles = RoleDefinitions.ProductAdmin + "," + RoleDefinitions.ProductReadOnly + "," + RoleDefinitions.ProductEdit)]
+        public async Task<ActionResult> GetProducts()
+        {
+            var products = await _productRepository.GetRelatedProducts(CurrentUser);
+            return Ok(products);
+        }
+
+        [HttpGet("{id}")]
+        [Authorize(Roles = RoleDefinitions.ProductAdmin + "," + RoleDefinitions.ProductReadOnly + "," + RoleDefinitions.ProductEdit)]
+        public async Task<ActionResult> GetProduct([FromRoute] Guid id)
+        {
+            var product = await _productRepository.GetProduct(id);
+            return Ok(product);
         }
     }
 }

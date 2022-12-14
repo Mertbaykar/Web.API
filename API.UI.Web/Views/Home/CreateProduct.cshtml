@@ -49,7 +49,7 @@
         <div class="form-group mt-4">
             <label for="categories"></label>
 
-            <select id="companies" name="Companies" class="form-control" multiple="multiple">
+            <select id="company" name="Company" class="form-control">
                 @foreach (var company in companies)
                 {
                     <option value="@company.Id">@company.Name</option>
@@ -70,9 +70,9 @@
                 placeholder: 'Kategorileri Seçiniz'
             });
 
-            $('#companies').select2({
+            $('#company').select2({
                 closeOnSelect: false,
-                placeholder: 'Firmaları Seçiniz'
+                placeholder: 'Firma Seçiniz'
             });
 
             $(".createProductbtn").click(function () {

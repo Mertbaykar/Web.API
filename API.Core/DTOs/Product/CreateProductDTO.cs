@@ -20,6 +20,8 @@ namespace API.Core.DTOs.Product
         public decimal Price { get; set; }
 
         public List<Guid> Categories { get; set; } = new List<Guid>();
-        public List<Guid> Companies { get; set; } = new List<Guid>();
+
+        [Required(ErrorMessage = "Firma boş bırakılamaz")]
+        public Guid Company { get; set; }
     }
 }

@@ -77,19 +77,9 @@ namespace Web.API.DbContexts
 
             #region Product - Company
             modelBuilder.Entity<Product>()
-                  .HasMany(p => p.Companies)
-                  .WithMany(p => p.Products)
-                  .UsingEntity<Dictionary<string, object>>(
-                   j => j
-                       .HasOne<Company>()
-                       .WithMany()
-                       .HasForeignKey("CompanyId")
-                       .OnDelete(DeleteBehavior.Cascade),
-                   j => j
-                       .HasOne<Product>()
-                       .WithMany()
-                       .HasForeignKey("ProductId")
-                       .OnDelete(DeleteBehavior.Cascade));
+                  .HasOne(p => p.Company)
+                  .WithMany(p => p.Products);
+                  //.OnDelete(DeleteBehavior.Restrict);
             #endregion
 
             #region RoleGroup - Employee

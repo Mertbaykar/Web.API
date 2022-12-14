@@ -15,5 +15,10 @@ namespace API.Core.DTOs
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public Guid CompanyId { get; set; }
+
+        public bool IsInRole(string role)
+        {
+            return Roles.Contains(role);
+        }
     }
 }
