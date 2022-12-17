@@ -13,7 +13,7 @@ namespace Web.API.Repositories
 {
     public class CategoryRepository : RepositoryBase<Category>, ICategoryRepository
     {
-        public CategoryRepository(BusinessContext dbContext, IMapper mapper) : base(dbContext, mapper)
+        public CategoryRepository(BusinessContext dbContext, IMapper mapper, IHttpContextAccessor httpContextAccessor) : base(dbContext, mapper, httpContextAccessor)
         {
 
         }

@@ -44,18 +44,21 @@ namespace API.UI.Web.Controllers
         }
 
         #region CreateProduct
-        [Authorize(Roles = RoleDefinitions.ProductAdmin)]
+        [Authorize(Roles = RoleDefinitions.ProductAdmin+ "," + RoleDefinitions.ProductEdit + "," + RoleDefinitions.ProductCreate)]
         public async Task<IActionResult> CreateProduct()
         {
-            var categories = await _categoryClient.GetAll<GetCategoryDTO>();
+            if (User.IsInRole(RoleDefinitions.ProductAdmin))
+            {
+                var categories = await _categoryClient.GetAll<GetCategoryDTO>();
+                ViewBag.Categories = categories;
+            }
             var companies = await _companyClient.GetAll<GetCompanyDTO>();
-            ViewBag.Categories = categories;
             ViewBag.Companies = companies;
             return View();
         }
 
         [HttpPost]
-        [Authorize(Roles = RoleDefinitions.ProductAdmin)]
+        [Authorize(Roles = RoleDefinitions.ProductAdmin + "," + RoleDefinitions.ProductEdit + "," + RoleDefinitions.ProductCreate)]
         public async Task<IActionResult> CreateProduct(CreateProductDTO createProductDTO)
         {
             try
@@ -66,12 +69,16 @@ namespace API.UI.Web.Controllers
                 {
                     return Json(new
                     {
+                        IsSuccess = true,
                         Message = "Ürün eklendi"
                     });
                 }
+                var errorMessage = await response.Content.ReadAsStringAsync();
+
                 return Json(new
                 {
-                    Message = "Ürün eklenemedi"
+                    IsSuccess = false,
+                    Message = errorMessage
                 });
             }
             catch (Exception ex)
@@ -79,6 +86,7 @@ namespace API.UI.Web.Controllers
 
                 return Json(new
                 {
+                    IsSuccess = false,
                     Message = "Ürün eklenemedi. " + ex.Message
                 });
             }
@@ -95,14 +103,17 @@ namespace API.UI.Web.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = RoleDefinitions.ProductAdmin + "," + RoleDefinitions.ProductReadOnly + "," + RoleDefinitions.ProductEdit)]
+        [Authorize(Roles = RoleDefinitions.ProductAdmin + "," + RoleDefinitions.ProductEdit)]
         public async Task<IActionResult> ProductEdit(Guid id)
         {
             GetProductDTO product = await _productClient.GetProduct(id);
-            var categories = await _categoryClient.GetAll<GetCategoryDTO>();
-            var companies = await _companyClient.GetAll<GetCompanyDTO>();
-            ViewBag.Categories = categories;
-            ViewBag.Companies = companies;
+            if (User.IsInRole(RoleDefinitions.ProductAdmin))
+            {
+                var categories = await _categoryClient.GetAll<GetCategoryDTO>();
+                var companies = await _companyClient.GetAll<GetCompanyDTO>();
+                ViewBag.Categories = categories;
+                ViewBag.Companies = companies;
+            }
             return View(product);
         }
 

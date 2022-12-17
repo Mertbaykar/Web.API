@@ -22,6 +22,7 @@ builder.Services.AddDbContext<BusinessContext>(opts =>
     opts.UseSqlServer(builder.Configuration.GetConnectionString("sqlConnection"));
 });
 
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddScoped(typeof(IEmployeeRepository), typeof(EmployeeRepository));
 builder.Services.AddScoped(typeof(IProductRepository), typeof(ProductRepository));

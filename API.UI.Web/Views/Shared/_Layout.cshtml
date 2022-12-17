@@ -6,7 +6,8 @@
     <title>@ViewData["Title"] - API.UI.Web</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     @*<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />*@
-    <link rel="stylesheet" href="~/API.UI.Web.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/modal.css" asp-append-version="true" />
+    @*<link rel="stylesheet" href="~/API.UI.Web.styles.css" asp-append-version="true" />*@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
     <script src="https://kit.fontawesome.com/dee02a3eaf.js" crossorigin="anonymous"></script>
@@ -22,9 +23,6 @@
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
     <script src="~/js/Mert.js"></script>
 
-    @*<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.13.1/datatables.min.css"/>
- 
-<script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.13.1/datatables.min.js"></script>*@
 
 
     @await RenderSectionAsync("Scripts", required: false)
@@ -66,6 +64,45 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
+
+
+            <!-- Success Modal -->
+            <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModal" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            @*<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>*@
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            @*...*@
+                        </div>
+                        <div class="modal-footer">
+                            @*<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>*@
+                            <button type="button" class="btn btn-success" data-bs-dismiss="modal">Tamam</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModal" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            @*<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>*@
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            @*...*@
+                        </div>
+                        <div class="modal-footer">
+                            @*<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>*@
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Tamam</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             @RenderBody()
         </main>
     </div>

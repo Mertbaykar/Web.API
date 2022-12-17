@@ -10,7 +10,7 @@ namespace Web.API.Repositories
 {
     public class EmployeeRepository : RepositoryBase<Employee>, IEmployeeRepository
     {
-        public EmployeeRepository(BusinessContext dbContext, IMapper mapper) : base(dbContext, mapper)
+        public EmployeeRepository(BusinessContext dbContext, IMapper mapper, IHttpContextAccessor httpContextAccessor) : base(dbContext, mapper, httpContextAccessor)
         {
 
         }

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Web.API.Bases;
+using Web.API.Models;
 using Web.API.Repositories.Interfaces;
 
 namespace Web.API.Controllers
@@ -19,19 +20,19 @@ namespace Web.API.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = RoleDefinitions.ProductAdmin)]
+        [Authorize(Roles = RoleDefinitions.ProductAdmin + "," + RoleDefinitions.ProductEdit + "," + RoleDefinitions.ProductCreate)]
         public async Task<ActionResult> CreateProduct([FromBody] CreateProductDTO productDTO)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    var product = await _productRepository.Create(productDTO);
+                    Product product = await _productRepository.Create(productDTO);
                     return Ok(product);
                 }
                 catch (Exception ex)
                 {
-                    return BadRequest(ex);
+                    return BadRequest(ex.Message);
                 }
             }
             else
@@ -41,7 +42,7 @@ namespace Web.API.Controllers
         [Authorize(Roles = RoleDefinitions.ProductAdmin + "," + RoleDefinitions.ProductReadOnly + "," + RoleDefinitions.ProductEdit)]
         public async Task<ActionResult> GetProducts()
         {
-            var products = await _productRepository.GetRelatedProducts(CurrentUser);
+            var products = await _productRepository.GetRelatedProducts();
             return Ok(products);
         }
 

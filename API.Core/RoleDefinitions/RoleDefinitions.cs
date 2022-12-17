@@ -21,11 +21,14 @@ namespace API.Core.RoleDefinitions
         [Display(Prompt = productRoles, Name = "Ürün Yönetme Yetkisi", Description = "Ürünlerle ilgili her türlü işlemi yapabilme yetkisidir")]
         public const string ProductAdmin = "ProductAdmin";
 
-        [Display(Prompt = productRoles, Name = "Ürün İzleme Yetkisi", Description = "Ürünleri izleme yetkisidir")]
+        [Display(Prompt = productRoles, Name = "Ürün İzleme Yetkisi", Description = "Ürün izleme yetkisidir")]
         public const string ProductReadOnly = "ProductReadOnly";
 
-        [Display(Prompt = productRoles, Name = "Ürün Düzenleme Yetkisi", Description = "Ürünleri düzenleme yetkisidir")]
+        [Display(Prompt = productRoles, Name = "Ürün Düzenleme Yetkisi", Description = "Ürün düzenleme yetkisidir")]
         public const string ProductEdit = "ProductEdit";
+
+        [Display(Prompt = productRoles, Name = "Ürün Yaratma Yetkisi", Description = "Ürün yaratma yetkisidir")]
+        public const string ProductCreate = "ProductCreate";
         #endregion
     }
 }

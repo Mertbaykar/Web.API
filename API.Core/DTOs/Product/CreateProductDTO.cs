@@ -18,10 +18,10 @@ namespace API.Core.DTOs.Product
         [Required(ErrorMessage = "Fiyat boş bırakılamaz ve sayı girilmelidir")]
         [DisplayFormat(DataFormatString = "{0:n2}", ApplyFormatInEditMode = true)]
         public decimal Price { get; set; }
-
+        [Display(Name = "Kategoriler")]
         public List<Guid> Categories { get; set; } = new List<Guid>();
 
-        [Required(ErrorMessage = "Firma boş bırakılamaz")]
+        [Display(Name = "Firma")]
         public Guid Company { get; set; }
     }
 }

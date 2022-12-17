@@ -1,1 +1,2 @@
+Success ve error Modalları eklenecek, uyarı ve bildirim gibi amaçlar için popup olarak kullanılacak.
 ProductEdit sayfası düzenlenecek ve uygun fonksiyon yazılacak.

@@ -13,7 +13,7 @@ namespace Web.API.Repositories
 {
     public class CompanyRepository : RepositoryBase<Company>, ICompanyRepository
     {
-        public CompanyRepository(BusinessContext dbContext, IMapper mapper) : base(dbContext, mapper)
+        public CompanyRepository(BusinessContext dbContext, IMapper mapper, IHttpContextAccessor httpContextAccessor) : base(dbContext, mapper, httpContextAccessor)
         {
 
         }

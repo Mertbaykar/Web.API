@@ -9,9 +9,10 @@ namespace Web.API.Repositories.Interfaces
     public interface IProductRepository : IRepositoryBase<Product>
     {
         Task<Product> Create(CreateProductDTO productDTO);
-        Task<List<GetProductDTO>> GetRelatedProducts(UserInfoDTO currentUser);
+        Task<Product> CreateAsAdmin(CreateProductDTO productDTO);
+        Task<Product> CreateAsOrdinary(CreateProductDTO productDTO);
+        Task<List<GetProductDTO>> GetRelatedProducts();
         Task<GetProductDTO> GetProduct(Guid id);
         void AddCategories(Product product, List<Guid> categories);
-        void ChangeCompany(Product product, Guid companyId);
     }
 }

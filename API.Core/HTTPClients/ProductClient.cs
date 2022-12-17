@@ -27,10 +27,6 @@ namespace API.Core.HTTPClients
 
         public async Task<GetProductDTO> GetProduct(Guid id)
         {
-            //Dictionary<string, string> query = new Dictionary<string, string>()
-            //{
-            //    ["id"] = id.ToString()
-            //};
             var response = await _httpClient.GetAsync(_httpClient.BaseAddress!.ToString() + "/" + id.ToString());
             var result = await response.Content.ReadFromJsonAsync<GetProductDTO>();
             return result;

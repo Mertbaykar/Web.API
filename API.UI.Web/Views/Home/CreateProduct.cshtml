@@ -2,6 +2,7 @@
 @using System.Security.Claims
 @using API.Core.DTOs.Category
 @using API.Core.DTOs.Company
+@using API.Core.RoleDefinitions
 
 @{
     ViewData["Title"] = "Home Page";
@@ -35,7 +36,7 @@
         </div>
 
         <div class="form-group mt-4">
-            <label for="categories"></label>
+            @Html.LabelFor(x=> x.Categories, new{@class="form-control"})
 
             <select id="categories" name="Categories" class="form-control" multiple="multiple">
                 @foreach (var category in categories)
@@ -46,17 +47,20 @@
 
         </div>
 
-        <div class="form-group mt-4">
-            <label for="categories"></label>
+        @if (User.IsInRole(RoleDefinitions.ProductAdmin))
+        {
+            <div class="form-group mt-4">
+                @Html.LabelFor(x=> x.Company, new{@class="form-control"})
 
-            <select id="company" name="Company" class="form-control">
-                @foreach (var company in companies)
-                {
-                    <option value="@company.Id">@company.Name</option>
-                }
-            </select>
-
-        </div>
+                <select id="company" name="Company" class="form-control">
+                    <option value="">Seçiniz</option>
+                    @foreach (var company in companies)
+                    {
+                        <option value="@company.Id">@company.Name</option>
+                    }
+                </select>
+            </div>
+        }
 
         <button type="button" class="btn btn-primary mt-5 createProductbtn">Create</button>
     </form>
@@ -70,18 +74,32 @@
                 placeholder: 'Kategorileri Seçiniz'
             });
 
-            $('#company').select2({
-                closeOnSelect: false,
-                placeholder: 'Firma Seçiniz'
-            });
+            if ($('#company').length != 0) {
+                $('#company').select2({
+                    closeOnSelect: false,
+                    placeholder: 'Firma Seçiniz'
+                });
+            }
 
             $(".createProductbtn").click(function () {
                 mert.submitForm('#createProductForm', '@Url.Action("CreateProduct","Home")',
                     (function (response) {
-                        alert(response.message);
+                        if (response.isSuccess) {
+                            mert.success(response.message, function () {
+                                console.log("success modal");
+                            });
+                        }
+                        else {
+                            mert.error(response.message, function () {
+                                console.log("error modal");
+                            });
+                        }
+
                     }),
                     (function (response) {
-                        alert(response.message);
+                        mert.error(response.message, function () {
+                            console.log("error modal");
+                        });
                     }));
             });
 

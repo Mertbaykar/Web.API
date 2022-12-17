@@ -16,5 +16,10 @@ namespace Web.API.Models
         public virtual Company Company { get; set; }
         [ForeignKey("Company")]
         public Guid CompanyId { get; set; }
+
+        public void ChangeCompany(Guid companyId)
+        {
+            CompanyId= companyId;
+        }
     }
 }
